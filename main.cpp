@@ -33,15 +33,21 @@ double is_near(const Mage& object1, const Mage& object2)
 
 int is_hit(const Mage& object1, const Bullet& bullet)
 {
-    sf::Vector2f magePos = object1.pos();
-    sf::Vector2f mageSize = object1.size();
-    sf::Vector2f bulletPos = bullet.pos();
-    sf::Vector2f bulletSize = bullet.size();
+    // sf::Vector2f magePos = object1.pos();
+    // sf::Vector2f mageSize = object1.size();
+    // sf::Vector2f bulletPos = bullet.pos();
+    // sf::Vector2f bulletSize = bullet.size();
+    //
+    // if (magePos.x < bulletPos.x + bulletSize.x &&
+    //     magePos.x + mageSize.x > bulletPos.x &&
+    //     magePos.y < bulletPos.y + bulletSize.y &&
+    //     magePos.y + mageSize.y > bulletPos.y)
+    // {
+    //     return 1;
+    // }
+    // return 0;
 
-    if (magePos.x < bulletPos.x + bulletSize.x &&
-        magePos.x + mageSize.x > bulletPos.x &&
-        magePos.y < bulletPos.y + bulletSize.y &&
-        magePos.y + mageSize.y > bulletPos.y)
+    if(object1.get_bounds().intersects(bullet.get_bounds()))
     {
         return 1;
     }

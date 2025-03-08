@@ -128,6 +128,11 @@ public:
         return current_sprite.getPosition();
     }
 
+    sf::FloatRect get_bounds() const
+    {
+        return current_sprite.getLocalBounds();
+    }
+
     sf::Vector2f size() const
     {
         return {current_sprite.getGlobalBounds().width, current_sprite.getGlobalBounds().height};

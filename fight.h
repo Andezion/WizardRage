@@ -32,6 +32,11 @@ public:
         return sprite.getPosition();
     }
 
+    sf::FloatRect get_bounds() const
+    {
+        return sprite.getLocalBounds();
+    }
+
     sf::Vector2f size() const
     {
         return {sprite.getGlobalBounds().width, sprite.getGlobalBounds().height};
