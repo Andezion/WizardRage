@@ -33,12 +33,19 @@ double is_near(const Mage& object1, const Mage& object2)
 
 int is_hit(const Mage& object1, const Bullet& bullet)
 {
-    if(object1.get_bounds().intersects(bullet.get_bounds()))
+    sf::FloatRect test1 = object1.get_bounds();
+    sf::FloatRect test2 = bullet.get_bounds();
+
+    std::cout << "Enemy: " << test1.left << ", " << test1.top << ", " << test1.width << ", " << test1.height << std::endl;
+    std::cout << "Bullet: " << test2.left << ", " << test2.top << ", " << test2.width << ", " << test2.height << std::endl;
+
+    if(test1.intersects(test2))
     {
         return 1;
     }
     return 0;
 }
+
 
 float enemy_x = 2000;
 float enemy_y = 2000;
