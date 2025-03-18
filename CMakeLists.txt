@@ -16,6 +16,7 @@ add_executable(Game_SFML_ main.cpp
         aim.h
         characters.h
         fight.h
-        info.h)
+        info.h
+        collision.h)
 
 target_link_libraries(Game_SFML_ sfml-graphics sfml-window sfml-system)

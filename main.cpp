@@ -11,6 +11,7 @@
 #include "fight.h"
 #include "info.h"
 #include "aim.h"
+#include "collision.h"
 
 int switcher_for_bots(const double dist)
 {
@@ -31,20 +32,6 @@ double is_near(const Mage& object1, const Mage& object2)
     return dist;
 }
 
-int is_hit(const Mage& object1, const Bullet& bullet)
-{
-    sf::FloatRect test1 = object1.get_bounds();
-    sf::FloatRect test2 = bullet.get_bounds();
-
-    std::cout << "Enemy: " << test1.left << ", " << test1.top << ", " << test1.width << ", " << test1.height << std::endl;
-    std::cout << "Bullet: " << test2.left << ", " << test2.top << ", " << test2.width << ", " << test2.height << std::endl;
-
-    if(test1.intersects(test2))
-    {
-        return 1;
-    }
-    return 0;
-}
 
 
 float enemy_x = 2000;
@@ -59,7 +46,6 @@ int main()
  
     Mage character(1100, 1100);
     character.loadTextures(0);
-    
     info info(100, 100, 100, 100);
 
     Mage enemy(enemy_x, enemy_y);
@@ -68,6 +54,7 @@ int main()
 
     sf::View camera(sf::FloatRect(0, 0, 1200, 800));
     camera.setCenter(character.X_cord, character.Y_cord);
+    circle_for_collision for_player(character.X_cord, character.Y_cord);
 
     int world = 130;
     float full_world = static_cast<float>(world) * 40;
@@ -177,10 +164,10 @@ int main()
                 float distance = std::sqrt((targetX - bullet.x) * (targetX - bullet.x) +
                                            (targetY - bullet.y) * (targetY - bullet.y));
 
-                if(is_hit(enemy, bullet))
+                /*if(is_hit(enemy, bullet))
                 {
                     info_enemy.update_health(0.1);
-                }
+                }*/
 
                 if (distance < 1.0f)
                 {
@@ -207,6 +194,7 @@ int main()
             {
                 character.move_x(0.5);
             }
+            for_player.set_position(character.get_pos().x, character.get_pos().y);
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -219,6 +207,7 @@ int main()
             {
                 character.move_x(-0.5);
             }
+            for_player.set_position(character.get_pos().x, character.get_pos().y);
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -231,6 +220,7 @@ int main()
             {
                 character.move_y(-0.5);
             }
+            for_player.set_position(character.get_pos().x, character.get_pos().y);
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -243,6 +233,7 @@ int main()
             {
                 character.move_y(0.5);
             }
+            for_player.set_position(character.get_pos().x, character.get_pos().y);
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -386,6 +377,8 @@ int main()
                 window.draw(bullet.sprite);
             }
         }
+
+        for_player.draw(window);
 
         window.display();
     }

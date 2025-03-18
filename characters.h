@@ -118,6 +118,11 @@ public:
         type = 1;
     }
 
+    sf::Vector2f get_pos() const
+    {
+        return current_sprite.getPosition();
+    }
+
     void attack()
     {
         type = 2;
