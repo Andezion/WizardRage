@@ -32,7 +32,10 @@ double is_near(const Mage& object1, const Mage& object2)
     return dist;
 }
 
-
+bool is_hit(const sf::CircleShape& bullet, const sf::CircleShape& enemy)
+{
+    return bullet.getLocalBounds().intersects(enemy.getLocalBounds());
+}
 
 float enemy_x = 2000;
 float enemy_y = 2000;
@@ -54,8 +57,11 @@ int main()
 
     sf::View camera(sf::FloatRect(0, 0, 1200, 800));
     camera.setCenter(character.X_cord, character.Y_cord);
-    circle_for_collision for_player(600 + (character.X_cord - camera.getCenter().x),
-                                  400 + (character.Y_cord - camera.getCenter().y));
+
+    circle_for_collision for_player(600 + (enemy.X_cord - camera.getCenter().x),
+                                  400 + (enemy.Y_cord - camera.getCenter().y));
+    circle_for_collision for_enemy(600 + (enemy.X_cord - camera.getCenter().x),
+                                    400 + (enemy.Y_cord - camera.getCenter().y));
 
     int world = 130;
     float full_world = static_cast<float>(world) * 40;
@@ -278,6 +284,10 @@ int main()
                 {
                     enemy.setDirection(0);
                     enemy.move_x(0.1);
+
+                    for_enemy.set_position(600 + (enemy.X_cord - camera.getCenter().x),
+                                            400 + (enemy.Y_cord - camera.getCenter().y));
+
                     info_enemy.update_x(0.1);
                 }
                 if(character.Y_cord > enemy.Y_cord &&
@@ -285,6 +295,10 @@ int main()
                 && complex_world_checker(enemy.X_cord, enemy.Y_cord, table))
                 {
                     enemy.move_y(0.1);
+
+                    for_enemy.set_position(600 + (enemy.X_cord - camera.getCenter().x),
+                                            400 + (enemy.Y_cord - camera.getCenter().y));
+
                     info_enemy.update_y(0.1);
                 }
                 if(character.X_cord < enemy.X_cord &&
@@ -293,6 +307,10 @@ int main()
                 {
                     enemy.setDirection(1);
                     enemy.move_x(-0.1);
+
+                    for_enemy.set_position(600 + (enemy.X_cord - camera.getCenter().x),
+                                            400 + (enemy.Y_cord - camera.getCenter().y));
+
                     info_enemy.update_x(-0.1);
                 }
                 if(character.Y_cord < enemy.Y_cord &&
@@ -383,6 +401,7 @@ int main()
         }
 
         for_player.draw(window);
+        for_enemy.draw(window);
 
         window.display();
     }
