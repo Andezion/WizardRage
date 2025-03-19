@@ -16,7 +16,7 @@ public:
         y = dy;
 
         circle.setRadius(radius);
-        circle.setPosition(sf::Vector2f(x - radius, y - radius));
+        circle.setPosition(sf::Vector2f(x - 2 * radius / 3, y - 2 * radius / 3));
         circle.setFillColor(sf::Color(100, 100, 100, 100));
     }
 
@@ -29,7 +29,7 @@ public:
     {
         x = dx;
         y = dy;
-        circle.setPosition(sf::Vector2f(x - radius, y - radius));
+        circle.setPosition(sf::Vector2f(x - 2 * radius / 3, y - 2 * radius / 3));
     }
 
     sf::CircleShape get_circle() const

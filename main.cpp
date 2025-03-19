@@ -54,7 +54,8 @@ int main()
 
     sf::View camera(sf::FloatRect(0, 0, 1200, 800));
     camera.setCenter(character.X_cord, character.Y_cord);
-    circle_for_collision for_player(character.X_cord, character.Y_cord);
+    circle_for_collision for_player(600 + (character.X_cord - camera.getCenter().x),
+                                  400 + (character.Y_cord - camera.getCenter().y));
 
     int world = 130;
     float full_world = static_cast<float>(world) * 40;
@@ -194,7 +195,8 @@ int main()
             {
                 character.move_x(0.5);
             }
-            for_player.set_position(character.get_pos().x, character.get_pos().y);
+            for_player.set_position(600 + (character.X_cord - camera.getCenter().x),
+                                  400 + (character.Y_cord - camera.getCenter().y));
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -207,7 +209,8 @@ int main()
             {
                 character.move_x(-0.5);
             }
-            for_player.set_position(character.get_pos().x, character.get_pos().y);
+            for_player.set_position(600 + (character.X_cord - camera.getCenter().x),
+                                  400 + (character.Y_cord - camera.getCenter().y));
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -220,7 +223,8 @@ int main()
             {
                 character.move_y(-0.5);
             }
-            for_player.set_position(character.get_pos().x, character.get_pos().y);
+            for_player.set_position(600 + (character.X_cord - camera.getCenter().x),
+                                  400 + (character.Y_cord - camera.getCenter().y));
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -233,7 +237,8 @@ int main()
             {
                 character.move_y(0.5);
             }
-            for_player.set_position(character.get_pos().x, character.get_pos().y);
+            for_player.set_position(600 + (character.X_cord - camera.getCenter().x),
+                                  400 + (character.Y_cord - camera.getCenter().y));
             info.update_stamina(0.02);
             info.update_mana(-0.05);
         }
@@ -297,7 +302,6 @@ int main()
                     enemy.move_y(-0.1);
                     info_enemy.update_y(-0.1);
                 }
-
                 break;
             case 1:
                 if(character.X_cord > enemy.X_cord)
